@@ -1,17 +1,29 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import org.example.config.AppConfig;
+import org.example.model.ProductInfo;
+import org.example.service.ProductInfoService;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+import java.util.concurrent.TimeUnit;
+
+public class Main {
+    static void main(String[] args) throws Exception {
+        AppConfig config = new AppConfig();
+
+        var daraSource = new org.h2.jdbcx.JdbcDataSource();
+        daraSource.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+
+        ProductInfoService productInfoService = config.productInfoService(daraSource);
+
+        long start = System.currentTimeMillis();
+        ProductInfo info = productInfoService.getProductInfo("SKU-123")
+                .orTimeout(5, TimeUnit.SECONDS)
+                .join();
+        long elapsed = System.currentTimeMillis() - start;
+
+        System.out.println(info);
+        System.out.println("Elapsed: " + elapsed + " ms");
+
+        config.executor().shutdown();
     }
 }
