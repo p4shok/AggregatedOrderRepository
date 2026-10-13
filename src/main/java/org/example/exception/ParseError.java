@@ -1,4 +1,4 @@
-package org.example.error;
+package org.example.exception;
 
 public record ParseError(int lineNumber, String rawLine, String reason) {
 
