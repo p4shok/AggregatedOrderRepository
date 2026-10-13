@@ -1,0 +1,96 @@
+[INFO ] 2026-10-13 09:14:02.331 [main] TestRunner - ==============================================
+[INFO ] 2026-10-13 09:14:02.332 [main] TestRunner - Запуск тестового набора: RegressionSuite
+[INFO ] 2026-10-13 09:14:02.332 [main] TestRunner - Окружение: QA  | Браузер: Chrome 141.0.7390.55
+[INFO ] 2026-10-13 09:14:02.332 [main] TestRunner - JUnit 5.10.2 | Selenium 4.21.0 | Java 17.0.10
+[INFO ] 2026-10-13 09:14:02.333 [main] TestRunner - Потоков: 1 | Повтор при падении: 1
+[INFO ] 2026-10-13 09:14:02.333 [main] TestRunner - ==============================================
+
+[INFO ] 2026-10-13 09:14:02.845 [main] WebDriverFactory - Инициализация ChromeDriver...
+[INFO ] 2026-10-13 09:14:03.612 [main] WebDriverFactory - ChromeDriver успешно запущен (sessionId=7c3f1a9e4b8d2f60)
+[INFO ] 2026-10-13 09:14:03.701 [main] BaseTest - Открытие страницы: https://qa.example.com/login
+
+[INFO ] 2026-10-13 09:14:05.118 [main] LoginTest - ▶ START  shouldLoginWithValidCredentials()
+[INFO ] 2026-10-13 09:14:05.334 [main] LoginPage - Ввод логина: 'qa_user'
+[INFO ] 2026-10-13 09:14:05.612 [main] LoginPage - Ввод пароля: ********
+[INFO ] 2026-10-13 09:14:05.887 [main] LoginPage - Клик по кнопке 'Войти'
+[INFO ] 2026-10-13 09:14:06.902 [main] DashboardPage - Ожидание заголовка 'Личный кабинет'... OK (1.0s)
+[INFO ] 2026-10-13 09:14:06.913 [main] LoginTest - ✔ PASSED shouldLoginWithValidCredentials() (1.795s)
+
+[INFO ] 2026-10-13 09:14:06.921 [main] LoginTest - ▶ START  shouldShowErrorOnInvalidPassword()
+[INFO ] 2026-10-13 09:14:07.104 [main] LoginPage - Ввод логина: 'qa_user'
+[INFO ] 2026-10-13 09:14:07.312 [main] LoginPage - Ввод пароля: ********
+[INFO ] 2026-10-13 09:14:07.561 [main] LoginPage - Клик по кнопке 'Войти'
+[INFO ] 2026-10-13 09:14:08.203 [main] LoginPage - Получен текст ошибки: 'Неверный логин или пароль'
+[INFO ] 2026-10-13 09:14:08.210 [main] LoginTest - ✔ PASSED shouldShowErrorOnInvalidPassword() (1.289s)
+
+[INFO ] 2026-10-13 09:14:08.221 [main] SearchTest - ▶ START  shouldFindProductByName()
+[INFO ] 2026-10-13 09:14:08.552 [main] SearchPage - Ввод поискового запроса: 'ноутбук'
+[INFO ] 2026-10-13 09:14:09.041 [main] SearchPage - Найдено результатов: 12
+[INFO ] 2026-10-13 09:14:09.388 [main] SearchPage - Проверка первого результата: 'Ноутбук Lenovo IdeaPad 3'
+[INFO ] 2026-10-13 09:14:09.402 [main] SearchTest - ✔ PASSED shouldFindProductByName() (1.181s)
+
+[INFO ] 2026-10-13 09:14:09.410 [main] CartTest - ▶ START  shouldAddItemToCart()
+[INFO ] 2026-10-13 09:14:09.812 [main] ProductPage - Клик по кнопке 'Добавить в корзину'
+[INFO ] 2026-10-13 09:14:10.334 [main] CartPage - Товаров в корзине: 1
+[INFO ] 2026-10-13 09:14:10.455 [main] CartTest - ✔ PASSED shouldAddItemToCart() (1.045s)
+
+[WARN ] 2026-10-13 09:14:10.463 [main] CartTest - ▶ START  shouldApplyPromoCode()
+[INFO ] 2026-10-13 09:14:10.712 [main] CartPage - Ввод промокода: 'SALE2026'
+[INFO ] 2026-10-13 09:14:11.003 [main] CartPage - Клик по кнопке 'Применить'
+[WARN ] 2026-10-13 09:14:13.110 [main] CartPage - Элемент '.promo-success' не появился за 2s, повторная попытка...
+[WARN ] 2026-10-13 09:14:15.220 [main] CartPage - Элемент '.promo-success' не появился за 2s, повторная попытка...
+[ERROR] 2026-10-13 09:14:17.334 [main] CartPage - Элемент '.promo-success' не найден
+[ERROR] 2026-10-13 09:14:17.402 [main] CartTest - ✖ FAILED shouldApplyPromoCode()
+[ERROR] 2026-10-13 09:14:17.403 [main] CartTest - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.cssSelector: .promo-success (tried for 5 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:265)
+	at com.example.pages.CartPage.applyPromoCode(CartPage.java:87)
+	at com.example.tests.CartTest.shouldApplyPromoCode(CartTest.java:54)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+
+[INFO ] 2026-10-13 09:14:17.445 [main] ScreenshotUtil - Скриншот сохранён: ./target/screenshots/shouldApplyPromoCode_20261013_091417.png
+[INFO ] 2026-10-13 09:14:17.446 [main] ScreenshotUtil - HTML-дамп страницы сохранён: ./target/dumps/shouldApplyPromoCode_20261013_091417.html
+
+[INFO ] 2026-10-13 09:14:17.512 [main] CartTest - ↻ RETRY 1/1  shouldApplyPromoCode()
+[INFO ] 2026-10-13 09:14:17.901 [main] CartPage - Ввод промокода: 'SALE2026'
+[INFO ] 2026-10-13 09:14:18.145 [main] CartPage - Клик по кнопке 'Применить'
+[INFO ] 2026-10-13 09:14:18.922 [main] CartPage - Получен текст: 'Промокод применён. Скидка 15%'
+[INFO ] 2026-10-13 09:14:18.930 [main] CartTest - ✔ PASSED shouldApplyPromoCode() (после retry, 1.418s)
+
+[INFO ] 2026-10-13 09:14:18.945 [main] CheckoutTest - ▶ START  shouldCompleteCheckoutAsGuest()
+[INFO ] 2026-10-13 09:14:19.331 [main] CheckoutPage - Заполнение формы: имя='Иван', телефон='+79001234567'
+[INFO ] 2026-10-13 09:14:19.802 [main] CheckoutPage - Выбор способа оплаты: 'Карта онлайн'
+[INFO ] 2026-10-13 09:14:20.114 [main] CheckoutPage - Клик по кнопке 'Оформить заказ'
+[INFO ] 2026-10-13 09:14:21.552 [main] CheckoutPage - Номер заказа: ORD-2026-000417
+[INFO ] 2026-10-13 09:14:21.560 [main] CheckoutTest - ✔ PASSED shouldCompleteCheckoutAsGuest() (2.615s)
+
+[INFO ] 2026-10-13 09:14:21.571 [main] ProfileTest - ▶ START  shouldUpdateUserEmail()
+[INFO ] 2026-10-13 09:14:21.901 [main] ProfilePage - Текущий email: qa_user@example.com
+[INFO ] 2026-10-13 09:14:22.113 [main] ProfilePage - Новый email: qa_user_new@example.com
+[INFO ] 2026-10-13 09:14:22.556 [main] ProfilePage - Сохранение изменений
+[INFO ] 2026-10-13 09:14:23.004 [main] ProfilePage - Сообщение: 'Профиль обновлён'
+[INFO ] 2026-10-13 09:14:23.011 [main] ProfileTest - ✔ PASSED shouldUpdateUserEmail() (1.440s)
+
+[INFO ] 2026-10-13 09:14:23.020 [main] ApiSmokeTest - ▶ START  shouldReturn200OnHealthEndpoint()
+[INFO ] 2026-10-13 09:14:23.215 [main] ApiSmokeTest - GET https://qa.example.com/api/health -> 200 OK
+[INFO ] 2026-10-13 09:14:23.216 [main] ApiSmokeTest - ✔ PASSED shouldReturn200OnHealthEndpoint() (0.196s)
+
+[INFO ] 2026-10-13 09:14:23.401 [main] WebDriverFactory - Завершение работы ChromeDriver (sessionId=7c3f1a9e4b8d2f60)
+
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - ==============================================
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - ИТОГИ ТЕСТОВОГО ПРОГОНА
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - ==============================================
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - Всего тестов:        8
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - Успешно (PASSED):    8
+[INFO ] 2026-10-13 09:14:23.612 [main] TestRunner - Провалено (FAILED):  0
+[INFO ] 2026-10-13 09:14:23.613 [main] TestRunner - Пропущено (SKIPPED): 0
+[INFO ] 2026-10-13 09:14:23.613 [main] TestRunner - Повторов (RETRIES): 1
+[INFO ] 2026-10-13 09:14:23.613 [main] TestRunner - Общее время:        20.281s
+[INFO ] 2026-10-13 09:14:23.613 [main] TestRunner - Среднее время:     2.535s
+[INFO ] 2026-10-13 09:14:23.614 [main] TestRunner - Отчёт Allure:      ./target/allure-results
+[INFO ] 2026-10-13 09:14:23.614 [main] TestRunner - Скриншоты падений: ./target/screenshots
+[INFO ] 2026-10-13 09:14:23.614 [main] TestRunner - ==============================================
+[INFO ] 2026-10-13 09:14:23.614 [main] TestRunner - BUILD SUCCESS
+[INFO ] 2026-10-13 09:14:23.614 [main] TestRunner - ==============================================
