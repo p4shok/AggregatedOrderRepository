@@ -4,12 +4,13 @@ import org.example.exception.BrokenLineException;
 import org.example.exception.ParseError;
 import org.example.model.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TestLogParser {
+
+    private static final String DELIMITER_REGEX = "\\|";
+    private static final int EXPECTED_FIELDS = 3;
+
     public ParseReport parse(List<String> lines) {
         Map<String, TestResult> lastByTest = new LinkedHashMap<>();
         List<ParseError> errors = new ArrayList<>();
@@ -29,14 +30,20 @@ public class TestLogParser {
         return new ParseReport(new ArrayList<>(lastByTest.values()), errors);
     }
 
+    public static Optional<TestResult> firstFailed(List<TestResult> results) {
+        return results.stream()
+                .filter(r -> r.log() == Status.FAILED)
+                .findFirst();
+    }
+
     private TestResult parseLineOrThrow(String line) {
         if(line == null || line.isBlank()) {
             throw new BrokenLineException("Пустая строка");
         }
 
-        String[] parts = line.split("\\|", -1);
-        if(parts.length != 3) {
-            throw new BrokenLineException("Ожидалось 3 поля, найдено: " + parts.length);
+        String[] parts = line.split(DELIMITER_REGEX, -1);
+        if(parts.length != EXPECTED_FIELDS) {
+            throw new BrokenLineException("Ожидалось " + EXPECTED_FIELDS + " поля, найдено: " + parts.length);
         }
 
         String name = parts[0].trim();
